@@ -1,15 +1,23 @@
+import ThemeToggle from "@/components/common/switchTheme/themeToggle";
+import { Icon_Circle, Icon_Home, Icon_Menu, Icon_Starry } from "@/icons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import SidebarContent from "@/components/banner/sidebarContent";
 
 export default function Topbar() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const desktopSidebarRef = useRef<HTMLDivElement>(null);
+
   // 关闭移动端菜单
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
   }, []);
+
+  const handleNavigation = useCallback((path: string) => {
+    navigate(path);
+    closeMobileMenu();
+  }, [navigate, closeMobileMenu]);
 
   // 切换移动端菜单
   const toggleMobileMenu = useCallback(() => {
@@ -42,7 +50,7 @@ export default function Topbar() {
   return (
     <>
       {/* 移动端顶部栏 */}
-      <div className="lg:hidden bg-base-200/50 border-b border-base-300 p-3 gap-3">
+      <div className="lg:hidden bg-base-200 border-base-300 p-3 gap-3 transition-all duration-300">
         <button
           type="button"
           aria-label="菜单"
@@ -50,19 +58,7 @@ export default function Topbar() {
           className="btn btn-square btn-ghost btn-sm"
           onClick={toggleMobileMenu}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block h-5 w-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <Icon_Menu />
         </button>
       </div>
 
@@ -74,17 +70,85 @@ export default function Topbar() {
       {/* 移动端抽屉式侧边栏 */}
       <div
         ref={sidebarRef}
-        className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-base-200 z-50 transform transition-transform duration-300 ${
+        className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-base-200 z-50 transition-all duration-300 ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } flex flex-col border-r border-base-300`}
+        } flex flex-col border-r`}
       >
-        <SidebarContent onNavigate={navigate} onClose={closeMobileMenu} />
+        {/* Logo 区域 */}
+        <div className="p-4 flex justify-center transition-all duration-300">
+          <Icon_Circle />
+        </div>
+
+        {/* 导航菜单 */}
+        <nav className="flex-1 flex flex-col gap-2 p-4 transition-all duration-300">
+          <button
+            onClick={() => {
+              handleNavigation("/");
+            }}
+            type="button"
+            className="btn btn-ghost font-normal justify-start gap-3"
+          >
+            <Icon_Home />
+            <span className="whitespace-nowrap opacity-100 w-auto">
+              主页
+            </span>
+          </button>
+
+          <button
+            onClick={() => handleNavigation("/subscribeVideo")}
+            type="button"
+            className="btn btn-ghost font-normal justify-start gap-3 transition-all duration-300"
+          >
+            <Icon_Starry />
+            <span className="whitespace-nowrap opacity-100 w-auto">
+              推荐
+            </span>
+          </button>
+        </nav>
+
+        {/* 底部主题切换 */}
+        <div className="p-4 border-t">
+          <ThemeToggle />
+        </div>
       </div>
 
-      {/* 桌面端侧边栏 */}
-      <div className="hidden lg:flex h-full flex-col bg-base-200/50 border-r border-base-300">
-        <SidebarContent onNavigate={navigate} />
+      {/* 桌面端侧边栏 - 固定定位悬浮展开 */}
+      <div
+        ref={desktopSidebarRef}
+        className="hidden lg:flex fixed h-full flex-col bg-base-200 border-r transition-all duration-300 z-40 w-16"
+      >
+        {/* Logo 区域 */}
+        <div className="p-3 flex border-b justify-center">
+          <Icon_Circle />
+        </div>
+
+        {/* 导航菜单 */}
+        <nav className="flex-1 flex flex-col gap-1 ml-2 p-2">
+          <button
+            onClick={() => handleNavigation("/")}
+            type="button"
+            className="btn btn-ghost btn-sm btn-base-200 btn-square transition-all duration-300"
+          >
+            <Icon_Home />
+          </button>
+
+          <button
+            onClick={() => handleNavigation("/subscribeVideo")}
+            type="button"
+            className="btn btn-ghost btn-sm btn-base-200 btn-square"
+          >
+            <Icon_Starry />
+          </button>
+        </nav>
+
+        {/* 底部主题切换 */}
+        <div className="p-2 flex btn-square justify-center transition-all duration-300">
+          <ThemeToggle />
+        </div>
       </div>
+
+      {/* 桌面端占位符 - 保持布局 */}
+      <div className="hidden lg:block w-16 flex-shrink-0" />
     </>
   );
 }

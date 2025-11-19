@@ -21,10 +21,10 @@ export default antfu(
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
       "perfectionist/sort-imports": ["error", {
-        "type": "natural",          // 自然排序：a < A < b < B
-        "groups": [],               // 不分组 → 不产生空行
-        "newlines-between": "never",// 禁止在 import 之间空行
-        "order": "asc"
+        "type": "natural",
+        "order": "asc",
+        "groups": [],
+        "newlinesBetween": "never"
       }],
       "unicorn/filename-case": [
         "error",

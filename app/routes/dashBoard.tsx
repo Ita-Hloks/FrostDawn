@@ -1,6 +1,6 @@
-import { Outlet } from "react-router";
-import Topbar from "@/components/banner/topBanner";
 import type { Route } from "./+types/home";
+import Topbar from "@/components/banner/topBanner";
+import { Outlet } from "react-router";
 
 export function meta(_args: Route.MetaArgs) {
   return [
@@ -18,7 +18,7 @@ export default function DashBoard() {
         <Outlet />
       </div>
       {/* 桌面端: 左侧边栏 + 主内容 */}
-      <div className="hidden lg:grid h-full grid-cols-[200px_1fr] overflow-hidden">
+      <div className="hidden lg:grid h-full grid-cols-[auto_1fr] overflow-hidden">
         <Topbar />
         <div className="overflow-auto">
           <Outlet />
