@@ -3,7 +3,7 @@ import React from "react";
 export function HomePage() {
   return (
     <main
-      className="min-h-screen bg-gradient-to-br from-sky-800 bg-pink-50 dark:bg-pink-300 relative overflow-y-auto"
+      className="min-h-screen transition-all duration-300 bg-gradient-to-br from-pink-100 via-sky-200 to-sky-500 dark:from-gray-950 dark:via-slate-900 dark:to-amber-950 relative overflow-y-auto "
     >
       {/* 内容区域 */}
       <div className="relative z-10">
@@ -11,17 +11,27 @@ export function HomePage() {
         <div className="min-h-screen flex flex-col justify-center items-center p-6">
           <div className="w-full max-w-4xl">
             {/* 欢迎区域 */}
-            <div className="mb-12 text-white text-center">
-              <h1 className="text-6xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <div className="mb-12 text-center">
+              <h1 className="text-6xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-red-400 dark:to-amber-400">
                 FrostDawn
               </h1>
             </div>
             {/* 向下滚动提示 */}
             <div className="mt-12 text-center">
-              <p className="text-gray-300 text-sm mb-2">向下滚动查看更多内容</p>
+              <p className="base-content text-sm mb-2">向下滚动查看更多内容</p>
               <div className="animate-bounce">
-                <svg className="w-6 h-6 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                <svg
+                  className="w-6 h-6 mx-auto text-gray-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
                 </svg>
               </div>
             </div>

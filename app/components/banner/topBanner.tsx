@@ -115,7 +115,7 @@ export default function Topbar() {
       {/* 桌面端侧边栏 - 固定定位悬浮展开 */}
       <div
         ref={desktopSidebarRef}
-        className="hidden lg:flex fixed h-full flex-col bg-base-200 border-r transition-all duration-300 z-40 w-16"
+        className="hidden lg:flex fixed h-full flex-col bg-base-200 transition-all duration-300 z-40 w-16"
       >
         {/* Logo 区域 */}
         <div className="p-3 flex border-b justify-center">
