@@ -1,3 +1,4 @@
+import type { Route } from "./+types/root";
 import {
   isRouteErrorResponse,
   Links,
@@ -6,7 +7,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import type { Route } from "./+types/root";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -22,14 +22,31 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+// 内联脚本：在页面渲染前立即执行，避免闪烁
+const themeScript = `
+  (function() {
+    try {
+      var saved = localStorage.getItem('theme');
+      var theme = saved ? JSON.parse(saved) : null;
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var effectiveTheme = theme ?? (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', effectiveTheme);
+    } catch (e) {
+      try { document.documentElement.setAttribute('data-theme', 'light'); } catch(e) {}
+    }
+  })();
+`;
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* 在 head 中立即执行主题脚本，避免闪烁 */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
         {children}

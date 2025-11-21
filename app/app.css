@@ -17,7 +17,7 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "forest";
+  name: "dark";
   default: false;
   prefersdark: true;
   color-scheme: "dark";
@@ -30,6 +30,9 @@
   --depth: 0;
   --noise: 0;
 }
+
+/* DaisyUI 兼容 Tailwind 的 dark: */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
   --font-sans:
