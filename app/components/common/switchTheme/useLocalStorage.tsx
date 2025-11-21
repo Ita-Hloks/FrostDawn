@@ -2,14 +2,18 @@ import type React from "react";
 import { useEffect, useState } from "react";
 
 export function getLocalStorageValue<T>(key: string, defaultValue: T): T {
-  // getting stored value
   if (typeof window !== "undefined") {
     const saved = localStorage.getItem(key);
     if (saved === null || saved === undefined || saved === "undefined") {
       return defaultValue;
     }
-    else {
+    // 处理无效 JSON
+    try {
       return JSON.parse(saved) as T;
+    }
+    catch {
+      localStorage.removeItem(key);
+      return defaultValue;
     }
   }
 

@@ -18,10 +18,10 @@ export function HomePage() {
             </div>
             {/* 向下滚动提示 */}
             <div className="mt-12 text-center">
-              <p className="base-content text-sm mb-2">向下滚动查看更多内容</p>
+              <p className="base-content text-sm mb-4">向下滚动查看更多内容</p>
               <div className="animate-bounce">
                 <svg
-                  className="w-6 h-6 mx-auto text-gray-300"
+                  className="w-6 h-6 mx-auto text-base-content"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

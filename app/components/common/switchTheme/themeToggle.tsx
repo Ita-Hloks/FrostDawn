@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   // 存储用户最后一次选择的主题。null 表示用户未选择过（使用系统偏好）
-  const [savedTheme, setSavedTheme] = useLocalStorage<"light" | "dark" | null>("theme", null);
+  const [savedTheme, setSavedTheme] = useLocalStorage<"light" | "dark">("theme", "light");
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)", false);
 
   // 计算最终应使用的主题：用户选择优先，否则系统偏好，默认 light
@@ -19,7 +19,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
     if (typeof document !== "undefined") {
-      const htmlTheme = document.documentElement.getAttribute("data-theme") as "light" | "dark" | null;
+      const htmlTheme = document.documentElement.getAttribute("data-theme") as "light" | "dark";
       if (htmlTheme) {
         setCurrentTheme(htmlTheme);
       }
